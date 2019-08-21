@@ -2,6 +2,7 @@
     stdenv
   , boost
   , cmake
+  , ninja
 }:
 stdenv.mkDerivation {
   name = "cppjinja-alfa";
@@ -11,7 +12,7 @@ stdenv.mkDerivation {
     site = "https://cpphttpx.org/repos/cppjinja";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake ninja ];
   buildInputs = [ boost ];
 
   src = builtins.fetchurl {
