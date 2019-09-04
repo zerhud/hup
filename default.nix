@@ -20,7 +20,7 @@ let
 
     # libraries and tools
     helpers = callPackage ./helpers.nix {};
-    boost = pkgs.boost16x;
+    boost = pkgs.boost169;
     py_jinja = pkgs.python3Packages.jinja2;
 
     # patched libraries
