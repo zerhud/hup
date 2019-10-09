@@ -22,6 +22,7 @@ let
     helpers = callPackage ./helpers.nix {};
     boost = pkgs.boost169;
     py_jinja = pkgs.python3Packages.jinja2;
+    fossil = callPackage ./tools/fossil.nix {} ;
 
     # patched libraries
     python3 = pkgs.python3.overrideAttrs( old : {
@@ -37,6 +38,6 @@ let
         }) ;
   };
 in with self; rec {
-  inherit modegen cppjinja;
+  inherit modegen cppjinja fossil;
 }
 
