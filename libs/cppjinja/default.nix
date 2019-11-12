@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ninja ];
-  buildInputs = [ boost ];
+  buildInputs = [ boost boost.out boost.dev ];
 
   src = builtins.fetchurl {
     url = "http://cpphttpx.org/repos/cppjinja/tarball/e8f0c81bfc/cppjinja_-e8f0c81bfc.tar.gz";

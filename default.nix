@@ -20,7 +20,7 @@ let
 
     # libraries and tools
     helpers = callPackage ./helpers.nix {};
-    boost = pkgs.boost169;
+    boost = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
     py_jinja = pkgs.python3Packages.jinja2;
     fossil = callPackage ./tools/fossil.nix {} ;
 
