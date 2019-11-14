@@ -16,11 +16,23 @@ let
 
     # own projects
     modegen = callPackage ./tools/modegen { };
-    cppjinja = callPackage ./libs/cppjinja {};
+    cppjinja = callPackage ./libs/cppjinja { boost_shared=boost_stable; };
 
     # libraries and tools
     helpers = callPackage ./helpers.nix {};
-    boost = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
+    boost_stable = pkgs.boost169;
+    boost_orig = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
+    boost = boost_orig.overrideDerivation(
+      old:{
+        version="1.71.0";
+        src = pkgs.fetchurl {
+          url = "http://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.gz";
+          sha256 = "1ggmjp647n6bsykpdkvyg6wxzwx2y49vivr0c0gi8spjd1s4zcwn";
+        };
+      } );
+    boost_shared = boost.override{ enableShared = true; enableStatic = false; };
+    boost_static = boost.override{ enableShared = false; enableStatic = true; };
+    boost_all = boost.override{ enableShared = true; enableStatic = true; };
     py_jinja = pkgs.python3Packages.jinja2;
     fossil = callPackage ./tools/fossil.nix {} ;
 
