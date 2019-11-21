@@ -15,7 +15,7 @@ let
     llvm = pkgs.llvm_8;
 
     # own projects
-    modegen = callPackage ./tools/modegen { };
+    modegen = callPackage ./tools/modegen { stdenv = pkgs.llvmPackages_7.stdenv; };
     cppjinja = callPackage ./libs/cppjinja { boost_shared=boost_stable; };
 
     # libraries and tools
