@@ -8,6 +8,6 @@ stdenv.mkDerivation rec {
   src = builtins.fetchGit {
     url = "https://github.com/mat007/turtle.git";
     name = "turtle.git";
-    rev = "5c0f29012511339ba5cc2672f99a1356c5387b62";
+    rev = "44e8509d6f79833251bd7dc04655109ec6dc407c";
   };
 }
