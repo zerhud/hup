@@ -15,8 +15,14 @@ let
     llvm = pkgs.llvm_8;
 
     # own projects
-    modegen = callPackage ./tools/modegen { stdenv = pkgs.llvmPackages_7.stdenv; };
-    cppjinja = callPackage ./libs/cppjinja { boost_shared=boost_stable; };
+    modegen = callPackage ./tools/modegen {
+      boost = boost_stable;
+      stdenv = pkgs.llvmPackages_7.stdenv;
+    };
+
+    cppjinja = callPackage ./libs/cppjinja {
+      boost_shared=boost_stable;
+    };
 
     # libraries and tools
     helpers = callPackage ./helpers.nix {};
@@ -50,6 +56,6 @@ let
         }) ;
   };
 in with self; rec {
-  inherit modegen cppjinja fossil;
+  inherit stdenv modegen cppjinja fossil;
 }
 
