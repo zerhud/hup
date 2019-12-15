@@ -21,7 +21,8 @@ let
     };
 
     cppjinja = callPackage ./libs/cppjinja {
-      boost_shared=boost_stable;
+      #boost_shared=boost_stable;
+      boost_shared=boost_shared;
     };
 
     # libraries and tools
@@ -43,17 +44,21 @@ let
     fossil = callPackage ./tools/fossil.nix {} ;
 
     # patched libraries
-    python3 = pkgs.python3.overrideAttrs( old : {
+    python3_clean = pkgs.python38.overrideAttrs( old : {
         postPatch = old.postPatch + ''
         sed -i '55d' Modules/_decimal/libmpdec/context.c
         '';
     });
-    pybind11 =
-        (pkgs.pybind11.override { python = python3; })
-        .overrideAttrs( old : {
-            doCheck = true;
-            cmakeFlags = old.cmakeFlags ++ ["-DPYBIND11_TEST=OFF"];
-        }) ;
+	python_packages = pp: with pp; [ jinja2 ];
+	python3 = python3_clean.withPackages python_packages;
+    pybind11 = 
+        python3_clean.pkgs.pybind11
+        #.overrideAttrs( old : {
+        #	doInstallCheck = true;
+		#	installCheckTarget = "install";
+        #	cmakeFlags = old.cmakeFlags ++ ["-DPYBIND11_TEST=OFF"];
+        #})
+		;
   };
 in with self; rec {
   inherit stdenv modegen cppjinja fossil;
