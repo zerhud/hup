@@ -13,6 +13,7 @@ let
     ninja = pkgs.ninja; 
     clang = pkgs.llvmPackages_8.clang;
     llvm = pkgs.llvm_8;
+    clang_tools = pkgs.llvmPackages_latest.tools.llvm;
 
     # own projects
     modegen = callPackage ./tools/modegen {

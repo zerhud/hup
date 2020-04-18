@@ -4,6 +4,7 @@
   , cmake
   , ninja
   , helpers
+  , clang_tools
 }:
 stdenv.mkDerivation {
   name = "cppjinja-alfa";
@@ -15,7 +16,7 @@ stdenv.mkDerivation {
 
   nlohman_json_header = helpers.nlohman_json_header;
 
-  nativeBuildInputs = [ cmake ninja ];
+  nativeBuildInputs = [ cmake ninja clang_tools ];
   buildInputs = [ boost_shared helpers.turtle ];
 
   src = builtins.fetchurl {
