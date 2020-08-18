@@ -16,6 +16,7 @@ let
     clang_tools = pkgs.llvmPackages_latest.tools.llvm;
 
     # own projects
+    cmake_helpers=helpers.cmake;
     modegen = callPackage ./tools/modegen {
       boost = boost_stable;
       stdenv = pkgs.llvmPackages_7.stdenv;

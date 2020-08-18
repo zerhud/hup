@@ -10,6 +10,7 @@
   , llvm
   , pybind11
   , helpers
+  , cppjinja
 }:
 
 let
@@ -30,7 +31,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ninja ] ++ clcov_deps;
   buildInputs = [
     # for generation
-    python3 py_jinja
+    python3 py_jinja cppjinja
     # for build excutable file
     boost helpers.turtle pybind11
   ];
