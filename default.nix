@@ -11,8 +11,8 @@ let
     # compilers utils
     cmake = pkgs.cmake;
     ninja = pkgs.ninja; 
-    clang = pkgs.llvmPackages_8.clang;
-    llvm = pkgs.llvm_8;
+    clang = pkgs.llvmPackages_11.clang;
+    llvm = pkgs.llvm_11;
     clang_tools = pkgs.llvmPackages_latest.tools.llvm;
 
     # own projects
