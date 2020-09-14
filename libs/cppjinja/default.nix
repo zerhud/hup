@@ -22,7 +22,7 @@ stdenv.mkDerivation {
 
   cmakeFlags = ["-DENABLE_TESTS=OFF"];
   src = builtins.fetchurl {
-    url = "http://cpphttpx.org/repos/cppjinja/tarball/b04e68cbe5/cppjinja_-b04e68cbe5.tar.gz";
-    sha256 = "15y10rhr54msysl951kpmirjlysz9nv92ag6nk8ngnpm64b0mjgq";
+    url = "http://cpphttpx.org/repos/cppjinja/tarball/cf8415a9e9/cppjinja_-cf8415a9e9.tar.gz";
+    sha256 = "1v5dj2x3pl10af6vyf81s1bnyvbpj10742fh2cdzq5l1qq1nhnlb";
   };
 }
