@@ -7,18 +7,18 @@
   , cmake
   , ninja
   , clang
-  , llvm
+  , clang_tools
   , pybind11
   , helpers
   , cppjinja
 }:
 
 let
-  clcov_deps = if enable_clcov then [clang llvm] else [];
+  clcov_deps = if enable_clcov then [clang clang_tools] else [];
 
 in
 stdenv.mkDerivation rec {
-  name = "modegen-alfa";
+  pname = "modegen-alfa";
   version = "0.2.0";
 
   src = builtins.fetchurl {

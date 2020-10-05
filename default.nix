@@ -1,5 +1,5 @@
 {   pkgs ? import <nixpkgs> {}
-  , stdenv ? pkgs.gcc9Stdenv
+  , stdenv ? pkgs.gcc10Stdenv
   , enable_clcov ? false
 }:
 let
@@ -11,21 +11,21 @@ let
     # compilers utils
     cmake = pkgs.cmake;
     ninja = pkgs.ninja; 
-    clang = pkgs.llvmPackages_11.clang;
-    llvm = pkgs.llvm_11;
+    clang = pkgs.llvmPackages_latest.clang;
     clang_tools = pkgs.llvmPackages_latest.tools.llvm;
 
     # own projects
     cmake_helpers=helpers.cmake;
     modegen = callPackage ./tools/modegen {
-      boost = boost_stable;
-      stdenv = pkgs.llvmPackages_7.stdenv;
+      boost = boost_shared;
+      stdenv = pkgs.gcc10Stdenv;
     };
 
     cpphttpx_srv = callPackage ./libs/cpphttpx_srv { boost=boost_cmakebug; } ;
     cppjinja = callPackage ./libs/cppjinja {
       #boost_shared=boost_stable;
       boost_shared=boost_shared;
+      stdenv = pkgs.gcc10Stdenv;
     };
 
     # libraries and tools
@@ -34,10 +34,17 @@ let
     boost_orig = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
     boost = boost_orig.overrideDerivation(
       old:{
-        version="1.71.0";
+        patches = [];
+        version="1.74.0";
+        postInstall = ''
+          mkdir $dev/lib
+
+          ln -st $dev/lib $out/lib/lib*
+          '';
         src = pkgs.fetchurl {
-          url = "http://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.gz";
-          sha256 = "1ggmjp647n6bsykpdkvyg6wxzwx2y49vivr0c0gi8spjd1s4zcwn";
+          url = "http://dl.bintray.com/boostorg/release/1.74.0/source/boost_1_74_0.tar.gz";
+          sha256 = "19clvfjazc2im8rp5m631rrzgxnifz0li487mjy20lc8jb9kdzxg"; # 1.74
+          #sha256 = "1kvsdjpji8kql8xy3iak582z68k4xgwifab9alvpja45ws9f35cr"; # 1.73
         };
       } );
     boost_shared = boost.override{ enableShared = true; enableStatic = false; };
