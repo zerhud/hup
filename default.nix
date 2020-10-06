@@ -38,7 +38,6 @@ let
         version="1.74.0";
         postInstall = ''
           mkdir $dev/lib
-
           ln -st $dev/lib $out/lib/lib*
           '';
         src = pkgs.fetchurl {
