@@ -3,7 +3,6 @@
   , enable_clcov ? false
 }:
 let
-  #stdenv = pkgs.gcc9Stdenv;
   callPackage = stdenv.lib.callPackageWith self;
   self = rec {
     inherit stdenv enable_clcov pkgs callPackage;
@@ -13,26 +12,27 @@ let
     ninja = pkgs.ninja; 
     clang = pkgs.llvmPackages_latest.clang;
     clang_tools = pkgs.llvmPackages_latest.tools.llvm;
+    vscode = pkgs.vscode;
+    clion = pkgs.jetbrains.clion;
 
     # own projects
     cmake_helpers=helpers.cmake;
     modegen = callPackage ./tools/modegen {
       boost = boost_shared;
-      stdenv = pkgs.gcc10Stdenv;
     };
 
     cpphttpx_srv = callPackage ./libs/cpphttpx_srv { boost=boost_cmakebug; } ;
     cppjinja = callPackage ./libs/cppjinja {
       #boost_shared=boost_stable;
       boost_shared=boost_shared;
-      stdenv = pkgs.gcc10Stdenv;
     };
 
     # libraries and tools
     helpers = callPackage ./helpers.nix {};
+    boost = boost_shared;
     boost_stable = pkgs.boost169;
     boost_orig = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
-    boost = boost_orig.overrideDerivation(
+    boost_last = boost_orig.overrideDerivation(
       old:{
         patches = [];
         version="1.74.0";
@@ -46,9 +46,9 @@ let
           #sha256 = "1kvsdjpji8kql8xy3iak582z68k4xgwifab9alvpja45ws9f35cr"; # 1.73
         };
       } );
-    boost_shared = boost.override{ enableShared = true; enableStatic = false; };
-    boost_static = boost.override{ enableShared = false; enableStatic = true; };
-    boost_all = boost.override{ enableShared = true; enableStatic = true; };
+    boost_shared = boost_last.override{ enableShared = true; enableStatic = false; };
+    boost_static = boost_last.override{ enableShared = false; enableStatic = true; };
+    boost_all = boost_last.override{ enableShared = true; enableStatic = true; };
     boost_cmakebug = boost_orig.overrideAttrs( attrs: {
       postInstall = ''
         echo "''${!outputDev}/lib/cmake/"*/*.cmake > $out/foo

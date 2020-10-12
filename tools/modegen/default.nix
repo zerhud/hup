@@ -11,6 +11,8 @@
   , pybind11
   , helpers
   , cppjinja
+  , vscode
+  , clion ? null
 }:
 
 let
@@ -28,7 +30,7 @@ stdenv.mkDerivation rec {
 
   nlohman_json_header = helpers.nlohman_json_header;
 
-  nativeBuildInputs = [ cmake ninja ] ++ clcov_deps;
+  nativeBuildInputs = [ cmake ninja vscode clion ] ++ clcov_deps;
   buildInputs = [
     # for generation
     python3 py_jinja cppjinja
