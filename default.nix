@@ -32,20 +32,7 @@ let
     boost = boost_shared;
     boost_stable = pkgs.boost169;
     boost_orig = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
-    boost_last = boost_orig.overrideDerivation(
-      old:{
-        patches = [];
-        version="1.74.0";
-        postInstall = ''
-          mkdir $dev/lib
-          ln -st $dev/lib $out/lib/lib*
-          '';
-        src = pkgs.fetchurl {
-          url = "http://dl.bintray.com/boostorg/release/1.74.0/source/boost_1_74_0.tar.gz";
-          sha256 = "19clvfjazc2im8rp5m631rrzgxnifz0li487mjy20lc8jb9kdzxg"; # 1.74
-          #sha256 = "1kvsdjpji8kql8xy3iak582z68k4xgwifab9alvpja45ws9f35cr"; # 1.73
-        };
-      } );
+    boost_last = boost_orig;
     boost_shared = boost_last.override{ enableShared = true; enableStatic = false; };
     boost_static = boost_last.override{ enableShared = false; enableStatic = true; };
     boost_all = boost_last.override{ enableShared = true; enableStatic = true; };
