@@ -18,19 +18,28 @@ let
     # own projects
     cmake_helpers=helpers.cmake;
     modegen = callPackage ./tools/modegen {
-      boost = boost_shared;
+      boost = boost_last;
     };
 
     cpphttpx_srv = callPackage ./libs/cpphttpx_srv { boost=boost_cmakebug; } ;
     cppjinja = callPackage ./libs/cppjinja {
-      #boost_shared=boost_stable;
       boost_shared=boost_shared;
     };
 
     # libraries and tools
+    boost_json = stdenv.mkDerivation {
+      name = "boost_json";
+      cmakeFlags = [ "-DBOOST_JSON_STANDALONE=ON" "-DBOOST_JSON_BUILD_TESTS=OFF" ];
+      nativeBuildInputs = [ pkgs.cmake ];
+      src = pkgs.fetchFromGitHub {
+        owner = "boostorg";
+        repo = "json";
+        rev = "76ee8891d20167a2192aa594b7d2c702be2b9c20";
+        sha256 = "0rag2cf9msvasxrk7kqh2avsivqn1w69zr584bxpfa41pjxi6rbb";
+      };
+    };
     helpers = callPackage ./helpers.nix {};
     boost = boost_shared;
-    boost_stable = pkgs.boost169;
     boost_orig = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
     boost_last = boost_orig;
     boost_shared = boost_last.override{ enableShared = true; enableStatic = false; };
