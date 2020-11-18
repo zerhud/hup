@@ -29,8 +29,6 @@ stdenv.mkDerivation rec {
     sha256 = "10cnzhmin8m42icdwp8w8vy98z94dlq6cydpqkr91vn28h55zz88";
   };
 
-  nlohman_json_header = helpers.nlohman_json_header;
-
   nativeBuildInputs = [ cmake ninja vscode clion ] ++ clcov_deps;
   buildInputs = [ boost_json
     # for generation
