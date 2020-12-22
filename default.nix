@@ -59,6 +59,7 @@ let
       '';
     });
     py_jinja = pkgs.python3Packages.jinja2;
+    pytest = pkgs.python3Packages.pytest;
     fossil = callPackage ./tools/fossil.nix {} ;
     pistache = callPackage ./libs/pistache {} ;
 
