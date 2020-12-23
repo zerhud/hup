@@ -15,6 +15,7 @@
   , boost_json
   , vscode
   , clion ? null
+  , jq
 }:
 
 let
@@ -32,7 +33,7 @@ stdenv.mkDerivation rec {
 
   CTEST_OUTPUT_ON_FAILURE=1;
   PYTHONDONTWRITEBYTECODE=1;
-  nativeBuildInputs = [ cmake ninja vscode clion ] ++ clcov_deps;
+  nativeBuildInputs = [ cmake ninja vscode clion jq ] ++ clcov_deps;
   buildInputs = [ boost_json
     # for generation
     python3 py_jinja pytest

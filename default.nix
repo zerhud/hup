@@ -19,6 +19,7 @@ let
     cmake_helpers=helpers.cmake;
     modegen = callPackage ./tools/modegen {
       boost = boost_last;
+      jq = pkgs.jq;
     };
 
     cpphttpx_srv = callPackage ./libs/cpphttpx_srv { boost=boost_cmakebug; } ;
