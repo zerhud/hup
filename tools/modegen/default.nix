@@ -12,7 +12,6 @@
   , pybind11
   , helpers
   , cppjinja
-  , boost_json
   , vscode
   , clion ? null
   , jq
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
   CTEST_OUTPUT_ON_FAILURE=1;
   PYTHONDONTWRITEBYTECODE=1;
   nativeBuildInputs = [ cmake ninja vscode clion jq ] ++ clcov_deps;
-  buildInputs = [ boost_json
+  buildInputs = [
     # for generation
     python3 py_jinja pytest
     cppjinja
