@@ -6,7 +6,7 @@
  , sha256
 }:
 let info = rec {
-	fossil_shash = stdenv.lib.substring 0 10 fossil_hash;
+	fossil_shash = pkgs.lib.substring 0 10 fossil_hash;
 	tarball_name = "${name}-${fossil_shash}.tar.gz";
 };
 in with info; pkgs.fetchurl {

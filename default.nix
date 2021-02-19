@@ -3,7 +3,7 @@
   , enable_clcov ? false
 }:
 let
-  callPackage = stdenv.lib.callPackageWith self;
+  callPackage = pkgs.lib.callPackageWith self;
   self = rec {
     inherit stdenv enable_clcov pkgs callPackage;
 
