@@ -17,7 +17,7 @@ let
 
     # own projects
     cmake_helpers=helpers.cmake;
-    modegen = callPackage ./tools/modegen {
+    cogen = callPackage ./tools/cogen {
       boost = boost_last;
       jq = pkgs.jq;
     };
@@ -73,7 +73,7 @@ let
 in with self; rec {
   inherit
   stdenv
-  modegen cppjinja
+  cogen cppjinja
   cpphttpx_srv
   fossil pistache
   ;
