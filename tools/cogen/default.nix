@@ -22,12 +22,12 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = "modegen-alfa";
+  pname = "cogen-alfa";
   version = "0.2.0";
 
   src = builtins.fetchurl {
-    url = "http://cpphttpx.org/repos/modegen/tarball/c20624c608/modegen-c20624c608.tar.gz";
-    sha256 = "10cnzhmin8m42icdwp8w8vy98z94dlq6cydpqkr91vn28h55zz88";
+    url = "http://cpphttpx.org/repos/cogen/tarball/5729bba065/modegen-5729bba065.tar.gz";
+    sha256 = "1k5qp64mc6xxcqrip0sndccazj3iw8w0ic738yxfp81b4lb6969p";
   };
 
   CTEST_OUTPUT_ON_FAILURE=1;
