@@ -8,8 +8,8 @@
   , cmake_helpers
 }:
 let
-  commit = "7f98b4a7b1";
-  commit_sha256 = "1zacgpf6n3fvxyws9ihdpd5v5drhhkvjvnig4n5ra8bhrii6fdi7";
+  commit = "00b0222d83";
+  commit_sha256 = "1cg2qsvsknbgwb51gmbff30f1l9c5wg50905wx3c84qd1pg69d85";
 in stdenv.mkDerivation {
   name = "cppjinja-alpha";
 
