@@ -22,7 +22,7 @@ let
       jq = pkgs.jq;
     };
 
-    cpphttpx_srv = callPackage ./libs/cpphttpx_srv { boost=boost_shared; } ;
+    cpphttpx_srv = callPackage ./libs/cpphttpx_srv { boost=boost_all; } ;
     cppjinja = callPackage ./libs/cppjinja {
       boost_shared=boost_shared;
     };
