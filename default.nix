@@ -49,6 +49,7 @@ let
       '';
     });
     py_jinja = pkgs.python3Packages.jinja2;
+    pyreq = pkgs.python3Packages.requests;
     pytest = pkgs.python3Packages.pytest;
     fossil = callPackage ./tools/fossil.nix {} ;
     pistache = callPackage ./libs/pistache {} ;
