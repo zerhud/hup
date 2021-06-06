@@ -6,12 +6,13 @@
   , helpers
   , clang_tools
   , cmake_helpers
+  , commit ? "35c439e4d8"
+  , commit_sha256 ? "0g054mvgza3dcmvjrbbnsfcaa8z1x5x46a5qcrc0i5xhp8bdd240"
+  , build_number ? 3
 }:
-let
-  commit = "00b0222d83";
-  commit_sha256 = "1cg2qsvsknbgwb51gmbff30f1l9c5wg50905wx3c84qd1pg69d85";
-in stdenv.mkDerivation {
+stdenv.mkDerivation {
   name = "cppjinja-alpha";
+  inherit build_number;
 
   meta = {
     description = "jinja parser and generator with boost.spirit";
