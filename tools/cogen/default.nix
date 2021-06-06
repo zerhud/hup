@@ -15,6 +15,9 @@
   , vscode
   , clion ? null
   , jq
+  , rev ? "57575ea362"
+  , sha256_rev ? "1v5wqxj37f0yc770rsf281wvqvyh4fddgd40maxzpkmv0531pp9w"
+  , build_version ? 4
 }:
 
 let
@@ -22,13 +25,16 @@ let
 
 in
 stdenv.mkDerivation rec {
-  pname = "cogen-alfa";
-  version = "0.2.0";
+  pname = "cogen-alpha";
+  version = "0.2.0.${builtins.toString build_version}";
+  inherit build_version;
 
   src = builtins.fetchurl {
-    url = "http://cpphttpx.org/repos/cogen/tarball/5729bba065/modegen-5729bba065.tar.gz";
-    sha256 = "1k5qp64mc6xxcqrip0sndccazj3iw8w0ic738yxfp81b4lb6969p";
+    url = "http://cpphttpx.org/repos/cogen/tarball/${rev}/cogen-${rev}.tar.gz";
+    sha256 = sha256_rev;
   };
+
+  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=Release" ];
 
   CTEST_OUTPUT_ON_FAILURE=1;
   PYTHONDONTWRITEBYTECODE=1;
@@ -41,4 +47,4 @@ stdenv.mkDerivation rec {
     boost helpers.turtle pybind11
   ];
 }
-	
+
