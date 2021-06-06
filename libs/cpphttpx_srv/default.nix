@@ -43,6 +43,15 @@ let
     };
     buildInputs = [ cmake pkgs.curl ];
   };
+  libh2o = stdenv.mkDerivation rec {
+    name = "libh2o";
+    src = pkgs.fetchFromGitHub {
+      owner = "h2o";
+      repo = "h2o";
+      rev = "2c5b415";
+      sha256 = "01hkhmnp5msgnqzksp6vzyw2imkcg0vcffafvck6j31dw6km5nzb";
+    };
+  };
 in stdenv.mkDerivation {
   name = "cpphttpx_srv";
 
@@ -58,7 +67,9 @@ in stdenv.mkDerivation {
   ];
   buildInputs = [
     boost helpers.turtle
-    pkgs.h2o pkgs.libuv pkgs.icu
+    (pkgs.h2o.overrideAttrs (old: rec{enableDebugging=true;separateDebugInfo=true;}))
+    (pkgs.libuv.overrideAttrs (old: rec{enableDebugging=true;separateDebugInfo=true;}))
+    pkgs.icu
     curl curlcpp pkgs.http-parser
     pkgs.openssl pkgs.hiredis pkgs.zlib
     pkgs.python3 pkgs.python3Packages.tornado

@@ -27,7 +27,14 @@ let
       boost_shared=boost_shared;
     };
 
+    zero_queue = callPackage ./libs/zero_queue {};
+    cppoms = callPackage ./libs/cppoms {};
+    cppcache = callPackage ./libs/cppcache {};
+    static_string = callPackage ./libs/static_string {};
+    cppauth = callPackage ./libs/cppauth {boost=boost_last;};
+
     # libraries and tools
+    cppdb = callPackage ./libs/cppdb {};
     helpers = callPackage ./helpers.nix {};
     boost = boost_shared;
     boost_orig = pkgs.boost17x.override{ enableShared = true; enableStatic = true; };
@@ -75,8 +82,10 @@ in with self; rec {
   inherit
   stdenv
   cogen cppjinja
+  static_string
+  zero_queue cppoms cppcache cppauth
   cpphttpx_srv
-  fossil pistache
+  fossil pistache cppdb
   ;
 }
 
