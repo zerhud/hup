@@ -15,9 +15,9 @@
   , vscode
   , clion ? null
   , jq
-  , rev ? "57575ea362"
-  , sha256_rev ? "1v5wqxj37f0yc770rsf281wvqvyh4fddgd40maxzpkmv0531pp9w"
-  , build_version ? 4
+  , rev ? "ae9c515098"
+  , sha256_rev ? "1g8lm1qfdcsnrkdshw3rra2dl544m8d4s020cjrzyb5gv88d3ddi"
+  , build_version ? 11
 }:
 
 let
@@ -26,7 +26,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "cogen-alpha";
-  version = "0.2.0.${builtins.toString build_version}";
+  version = "0.2.1.${builtins.toString build_version}";
   inherit build_version;
 
   src = builtins.fetchurl {
