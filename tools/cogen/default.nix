@@ -13,11 +13,10 @@
   , helpers
   , cppjinja
   , vscode
-  , clion ? null
   , jq
-  , rev ? "ae9c515098"
-  , sha256_rev ? "1g8lm1qfdcsnrkdshw3rra2dl544m8d4s020cjrzyb5gv88d3ddi"
-  , build_version ? 11
+  , rev ? "f634fc9537"
+  , sha256_rev ? "1lz697ik43v9hci55yrfbm49yg3a8y9dqlzaxv27hw5q845bzkxg"
+  , build_version ? 1
 }:
 
 let
@@ -26,7 +25,7 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "cogen-alpha";
-  version = "0.2.1.${builtins.toString build_version}";
+  version = "0.3.0.${builtins.toString build_version}";
   inherit build_version;
 
   src = builtins.fetchurl {
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
 
   CTEST_OUTPUT_ON_FAILURE=1;
   PYTHONDONTWRITEBYTECODE=1;
-  nativeBuildInputs = [ cmake ninja vscode clion jq ] ++ clcov_deps;
+  nativeBuildInputs = [ cmake ninja vscode jq ] ++ clcov_deps;
   buildInputs = [
     # for generation
     python3 py_jinja pytest

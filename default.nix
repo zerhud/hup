@@ -13,7 +13,6 @@ let
     clang = pkgs.llvmPackages_latest.clang;
     clang_tools = pkgs.llvmPackages_latest.tools.llvm;
     vscode = pkgs.vscode;
-    clion = pkgs.jetbrains.clion;
 
     # own projects
     cmake_helpers=helpers.cmake;
@@ -22,7 +21,10 @@ let
       jq = pkgs.jq;
     };
 
-    cpphttpx_srv = callPackage ./libs/cpphttpx_srv { boost=boost_all; } ;
+    cpphttpx_srv = callPackage ./libs/cpphttpx_srv {
+      boost=boost_all;
+      h2o = pkgs.h2o;
+    } ;
     cppjinja = callPackage ./libs/cppjinja {
       boost_shared=boost_shared;
     };
@@ -60,6 +62,27 @@ let
     pytest = pkgs.python3Packages.pytest;
     fossil = callPackage ./tools/fossil.nix {} ;
     pistache = callPackage ./libs/pistache {} ;
+    libuv = pkgs.libuv.overrideAttrs ( old: rec{
+      version = "1.40.0";
+      src = pkgs.fetchFromGitHub {
+        owner = old.pname;
+        repo = old.pname;
+        rev = "v${version}";
+        sha256 = "1hd0x6i80ca3j0c3a7laygzab5qkgxjkz692jwzrsinsfhvbq0pg";
+      };
+    });
+    h2o = pkgs.h2o.overrideAttrs ( old: rec{
+      version = "2.3.0-beta3";
+      nativeBuildInputs = old.nativeBuildInputs ++ [pkgs.perl] ;
+      buildInputs = [ pkgs.openssl libuv pkgs.zlib pkgs.brotli ];
+      outputs = [ "out" ];
+      src = pkgs.fetchFromGitHub {
+        owner  = "h2o";
+        repo   = "h2o";
+        rev    = "2975e99433e37057daf2d7fb4f5eda387d932ef4";
+        sha256 = "1dp7f06gb18gvywgc3m5xpwnx0ra61gsjxqnl28xiw8n2fbz9z1v";
+      };
+    });
 
     # patched libraries
     python3_clean = pkgs.python38.overrideAttrs( old : {
@@ -85,7 +108,7 @@ in with self; rec {
   static_string
   zero_queue cppoms cppcache cppauth
   cpphttpx_srv
-  fossil pistache cppdb
+  h2o fossil pistache cppdb
   ;
 }
 

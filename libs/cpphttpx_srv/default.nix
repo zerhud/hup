@@ -6,6 +6,8 @@
   , helpers
   , pytest
   , pyreq
+  , libuv
+  , h2o
   , pkgs
   , rev ? "d529875a8a"
   , rev_sha256 ? "1mqy4vbd28hjvwyn2ic9cqjc3n3s0j2yrfwbrl8x0qy4idxs0xfk"
@@ -48,8 +50,10 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "h2o";
       repo = "h2o";
-      rev = "2c5b415";
-      sha256 = "01hkhmnp5msgnqzksp6vzyw2imkcg0vcffafvck6j31dw6km5nzb";
+      #rev = "2c5b415";
+      #sha256 = "01hkhmnp5msgnqzksp6vzyw2imkcg0vcffafvck6j31dw6km5nzb";
+      rev = "v2.2.6";
+      sha256 = "01hkhmnp6msgnqzksp6vzyw2imkcg0vcffafvck6j31dw6km5nzb";
     };
   };
 in stdenv.mkDerivation {
@@ -67,8 +71,9 @@ in stdenv.mkDerivation {
   ];
   buildInputs = [
     boost helpers.turtle
-    (pkgs.h2o.overrideAttrs (old: rec{enableDebugging=true;separateDebugInfo=true;}))
-    (pkgs.libuv.overrideAttrs (old: rec{enableDebugging=true;separateDebugInfo=true;}))
+    libuv h2o pkgs.nghttp2
+    #(pkgs.h2o.overrideAttrs (old: rec{enableDebugging=true;separateDebugInfo=true;}))
+    #(pkgs.libuv.overrideAttrs (old: rec{enableDebugging=true;separateDebugInfo=true;}))
     pkgs.icu
     curl curlcpp pkgs.http-parser
     pkgs.openssl pkgs.hiredis pkgs.zlib
