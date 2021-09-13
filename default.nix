@@ -13,6 +13,7 @@ let
     clang = pkgs.llvmPackages_latest.clang;
     clang_tools = pkgs.llvmPackages_latest.tools.llvm;
     vscode = pkgs.vscode;
+    python3Packages = pkgs.python3Packages;
 
     # own projects
     cmake_helpers=helpers.cmake;
@@ -57,9 +58,6 @@ let
         done
       '';
     });
-    py_jinja = pkgs.python3Packages.jinja2;
-    pyreq = pkgs.python3Packages.requests;
-    pytest = pkgs.python3Packages.pytest;
     fossil = callPackage ./tools/fossil.nix {} ;
     pistache = callPackage ./libs/pistache {} ;
     libuv = pkgs.libuv.overrideAttrs ( old: rec{
@@ -90,8 +88,8 @@ let
         sed -i '55d' Modules/_decimal/libmpdec/context.c
         '';
     });
-	python_packages = pp: with pp; [ jinja2 ];
-	python3 = python3_clean.withPackages python_packages;
+    python_packages = pp: with pp; [ jinja2 ];
+    python3 = python3_clean.withPackages python_packages;
     pybind11 =
         python3_clean.pkgs.pybind11
         #.overrideAttrs( old : {

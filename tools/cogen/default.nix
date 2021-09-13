@@ -2,8 +2,7 @@
     stdenv
   , enable_clcov
   , python3
-  , py_jinja
-  , pytest
+  , python3Packages
   , boost
   , cmake
   , ninja
@@ -21,6 +20,8 @@
 
 let
   clcov_deps = if enable_clcov then [clang clang_tools] else [];
+  python_pkgs = ppkgs : with ppkgs; [ jinja2 pytest ];
+  python = python3.withPackages python_pkgs;
 
 in
 stdenv.mkDerivation rec {
@@ -40,8 +41,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ninja vscode jq ] ++ clcov_deps;
   buildInputs = [
     # for generation
-    python3 py_jinja pytest
-    cppjinja
+    python cppjinja
     # for build excutable file
     boost helpers.turtle pybind11
   ];
