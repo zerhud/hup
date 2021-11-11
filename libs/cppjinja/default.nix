@@ -6,9 +6,9 @@
   , helpers
   , clang_tools
   , cmake_helpers
-  , commit ? "37a68764f4"
-  , commit_sha256 ? "1gvd6hxr3xfd2zn7r17j6xis3jl0m6qagl4v0hr3pl47valjv28q"
-  , build_number ? 4
+  , commit ? "d0b4d557d2"
+  , commit_sha256 ? "02cyqbd44jy2ghkiw8fvxx39lfhzqqmywz39nb0linvijj2hdc4z"
+  , build_number ? 0
 }:
 stdenv.mkDerivation {
   name = "cppjinja-alpha";
