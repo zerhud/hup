@@ -25,6 +25,7 @@ let
     cpphttpx_srv = callPackage ./libs/cpphttpx_srv {
       boost=boost_all;
       h2o = pkgs.h2o;
+      python3 = python3_clean;
     } ;
     cppjinja = callPackage ./libs/cppjinja {
       boost_shared=boost_shared;

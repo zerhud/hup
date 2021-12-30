@@ -4,8 +4,7 @@
   , cmake
   , ninja
   , helpers
-  , pytest
-  , pyreq
+  , python3
   , libuv
   , h2o
   , pkgs
@@ -15,6 +14,8 @@
   , sockjs_sha256 ? "0s6bwlmr24xv3mdb4p96q41h2pjkh31qq91kbq3mj2l8pbybmcmy"
 }:
 let
+  pyPack = p: with p; [ pytest requests ];
+  python = python3.withPackages pyPack;
   #curl = pkgs.curl.override { stdenv=stdenv; };
   #curlcpp = pkgs.curlcpp.override { stdenv=stdenv; };
   curl = stdenv.mkDerivation rec {
@@ -64,10 +65,11 @@ in stdenv.mkDerivation {
     site = "https://cpphttpx.org/repos/cpp_httpx_server";
   };
 
+
   nativeBuildInputs = [
     pkgs.pkgconfig cmake ninja
     helpers.cmake
-    pytest pyreq
+    python
   ];
   buildInputs = [
     boost helpers.turtle
@@ -77,7 +79,6 @@ in stdenv.mkDerivation {
     pkgs.icu
     curl curlcpp pkgs.http-parser
     pkgs.openssl pkgs.hiredis pkgs.zlib
-    pkgs.python3 pkgs.python3Packages.tornado
   ];
 
   uvRequest = builtins.fetchurl {
