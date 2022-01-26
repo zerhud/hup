@@ -4,6 +4,7 @@
   , cmake
   , ninja
   , helpers
+  , http_parser
   , python3
   , libuv
   , h2o
@@ -72,6 +73,7 @@ in stdenv.mkDerivation {
     python
   ];
   buildInputs = [
+    http_parser
     boost helpers.turtle
     libuv h2o pkgs.nghttp2
     #(pkgs.h2o.overrideAttrs (old: rec{enableDebugging=true;separateDebugInfo=true;}))

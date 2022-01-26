@@ -21,6 +21,9 @@ let
       boost = boost_last;
       jq = pkgs.jq;
     };
+    http_parser = callPackage ./libs/http_parser {
+      boost = boost_last;
+    };
 
     cpphttpx_srv = callPackage ./libs/cpphttpx_srv {
       boost=boost_all;
